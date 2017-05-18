@@ -1,0 +1,65 @@
+/**index.wxss**/
+.personal-container{
+  display: flex;
+  background-color: #f4f4f4;
+  height: 100vh;
+  flex-direction: column;
+}
+
+.personal-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50vh;
+  flex-direction: column;
+  background-color: white;
+  margin-bottom: 32rpx;
+}
+
+.personal-header-image {
+  width: 180rpx;
+  height: 180rpx;
+  border: 4px solid white;
+  border-radius: 50%;
+   box-shadow: 5px 5px 5px #888888;
+}
+
+.personal-header-name {
+  color: #353535;
+  font-size: 18px;
+  margin-top: 40rpx;
+}
+
+.personal-title {
+  color: #353535;
+  font-size: 14px;
+}
+
+.personal-secondary {
+  color: #aaaaaa;
+  font-size: 12px;
+  
+}
+
+.personal-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 16rpx;
+  margin-top: 1px;
+  align-items: center;
+  background-color: white;
+}
+
+.personal-column {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  align-items: center;
+}
+
+.personal-order-status-icon {
+  width: 48rpx;
+  height: 48rpx;
+  margin-bottom: 8rpx;
+}

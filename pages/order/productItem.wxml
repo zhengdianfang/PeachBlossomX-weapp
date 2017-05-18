@@ -1,0 +1,14 @@
+<template name="product-item">
+  <view class="product-item" wx:for="{{products}}" wx:key="{{item.objectId}}">
+        <image src="{{item.images[0]}}" class="product-item-image"></image>
+        <view class="product-item-column"  style="flex: 1; margin-left: 16rpx">
+           <text class="product-item-title">{{item.title}}</text>
+           <text class="product-item-unitprice">{{item.flavor}}</text>
+        </view>
+        <view class="product-item-column">
+            <text class="product-item-title">￥{{item.count * item.price}}</text>
+            <text class="product-item-unitprice">x{{item.count}}</text>
+        </view>    
+  </view>
+</template>
+      

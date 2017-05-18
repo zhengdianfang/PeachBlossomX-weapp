@@ -1,0 +1,32 @@
+<!--index.wxml-->
+<view class="personal-container">
+    <view class="personal-header">
+        <image src="{{user.avatarUrl}}" class="personal-header-image"></image>
+        <text class="personal-header-name">{{user.nickName}}</text>
+    </view>    
+
+    <view class="personal-row">
+        <text class="personal-title">我的订单</text>
+        <text class="personal-secondary" style="flex: 1;padding-right: 16rpx;text-align: right;" bindtap="openOrderList">查看全部订单</text>
+        <image src="../../images/ic_rightarrow.png" style="width: 16rpx; height: 16rpx"></image>
+    </view>
+
+    <view class="personal-row" bindtap="openOrderList" data-status="0">
+        <view class="personal-column">
+            <image src="../../images/will_pay.png" class="personal-order-status-icon" ></image>
+            <text class="personal-secondary">待付款</text>
+        </view>
+        <view  class="personal-column" bindtap="openOrderList" data-status="1">
+            <image src="../../images/will_send.png" class="personal-order-status-icon" ></image>
+            <text class="personal-secondary">待发货</text>
+        </view>
+        <view  class="personal-column" bindtap="openOrderList" data-status="2">
+            <image src="../../images/will_reciver.png" class="personal-order-status-icon" ></image>
+            <text class="personal-secondary">待收货</text>
+        </view>
+        <view  class="personal-column" bindtap="openOrderList" data-status="3">
+            <image src="../../images/finish.png" class="personal-order-status-icon" ></image>
+            <text class="personal-secondary">已完成</text>
+        </view>
+    </view>
+</view>

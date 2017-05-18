@@ -1,0 +1,18 @@
+<import src="addressItem.wxml"/>
+<import src="../../components/loading/loading.wxml"/>
+<template is="loading" data="{{ ...$wux.loading }}"/>
+<view class="addresslist-container">
+    <scroll-view scroll-y="true" style="flex: 1">
+        <radio-group bindchange="radioChange">
+             <label wx:for="{{addressList}}" wx:key="{{item.objectId}}">
+                <template is="address-item" data="{{address: item, editable: true}}"/>
+             </label>
+        </radio-group>
+       
+    </scroll-view>
+    <view class="addresslist-bottombar" bindtap="createNewAddress">
+        <image src="../../images/add_cricle_icon.png" class="addresslist-arrow-image"></image>
+        <text class="addresslist-title">新增收货地址</text>
+        <image src="../../images/ic_rightarrow.png" class="addresslist-arrow-icon"></image>
+    </view>
+</view>

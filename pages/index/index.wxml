@@ -1,0 +1,25 @@
+<!--index.wxml-->
+<import src="../../components/loading/loading.wxml"/>
+<template is="loading" data="{{ ...$wux.loading }}"/>
+<scroll-view scroll-y="true">
+  <view style="height: 100vh">
+    <swiper indicator-dots="{{true}}"
+      autoplay="{{true}}">
+      <block wx:for="{{tops}}" wx:key="{{item.objectId}}">
+        <swiper-item>
+          <image src="{{item.images[0]}}" class="slide-image" mode="aspectFill"/>
+        </swiper-item>
+      </block>
+    </swiper>
+    <view class="container">
+      <view class="product_item" wx:key="{{item.objectId}}" wx:for="{{products}}" bindtap="onClickProductItem" data-product="{{item}}">
+        <view class="product_item_content">
+            <image class="product_item_image" src="{{item.images[0]}}" mode="aspectFill"></image>
+            <text class="product_item_title">{{item.title}}</text>
+            <text class="product_item_price">￥{{item.price}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</scroll-view>
+

@@ -1,0 +1,175 @@
+/**index.wxss**/
+@import 'wrapGroup/index.wxss';
+.container{
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  width: 100%;
+}
+
+.slide-image{
+  width: 100%;
+  height: 100%;
+}
+
+.scroll-view{
+  height: 93vh;
+}
+
+.content{
+  display: flex;
+  padding-top: 0.7rem;
+  padding-bottom: 0.7rem;
+  flex-direction: column;
+  width: 100%;
+  background-color: white;
+}
+
+.content-title{
+  font-size: 14px;
+  color: #353535;
+  line-height: 15px;
+  padding-left: 0.7rem;
+  padding-right: 0.7rem;
+}
+
+.content-price{
+  font-size: 18px;
+  color: red;
+  font-weight: bold;
+  margin-top: 0.7rem;
+  margin-bottom: 0.7rem;
+  padding-left: 0.7rem;
+  padding-right: 0.7rem;
+}
+
+.content-count{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  border-top: 1px solid #f4f4f4;
+  border-bottom: 1px solid #f4f4f4;
+ 
+}
+
+.content-count-sheng{
+  font-size: 12px;
+  color: #aaaaaa;
+  margin-right: 0.7rem;
+}
+
+.divide{
+  height: 1px;
+  background-color: #f4f4f4;
+}
+
+.description{
+  padding: 0.5rem;
+  flex: 1;
+}
+
+.description-title{
+  font-size: 14px;
+  color: #353535;
+}
+
+.description-content-image{
+  width: 100%;
+  height: 100vh;
+}
+
+.actionbar{
+  height: 7vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+ 
+}
+
+.actionbar-shopcart{
+  display: flex;
+  width:15%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  border-top: 1px solid #f4f4f4;
+}
+
+.actionbar-addshopcart{
+  display: flex;
+  width: 40%;
+  height: 100%;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  background-color: orange;
+}
+
+.actionbar-justpay{
+  display: flex;
+  width: 40%;
+  height: 100%;
+  flex: 1;
+  background-color: red;
+  justify-content: center;
+  align-items: center;
+}
+
+.dialog-proudct-info{
+  display: flex;
+  flex-direction: row;
+  justify-content:space-between;
+  align-items: center;
+  margin-bottom: 8rpx;
+  padding: 16rpx;
+}
+
+.dialog-product-header{
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin-left: 16rpx;
+}
+
+.dialog-product-header-title{
+  color: #353535;
+  font-size: 14px;
+  margin-right: 16rpx;
+}
+
+.dialog-product-header-price{
+  color: red;
+  font-size: 16px;
+  margin-top: 16rpx;
+}
+
+.dialog-image{
+  width: 140rpx; 
+  height: 140rpx;
+  border-radius: 5px;
+  margin-top: -70rpx;
+}
+
+.product-count{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16rpx;
+}
+
+.product-confrim-button{
+  background-color: red;
+  font-size: 16px;
+  text-align: center;
+  color: white;
+  padding: 24rpx;
+}
+.actionbar-column {
+  display: flex;
+  flex-direction: column;
+}

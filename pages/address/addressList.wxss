@@ -1,0 +1,41 @@
+@import "addressItem.wxss";
+.addresslist-container{
+    display: flex;
+    height: 100vh;
+    flex-direction: column;
+    background-color: #f4f4f4;
+}
+
+.addresslist-bottombar {
+    height: 7vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    align-self: flex-end;
+    background-color:white;
+    border-top: 1px solid #f4f4f4; 
+  
+    padding-top: 8rpx;
+    padding-bottom: 8rpx;
+    width: 100%;
+}
+
+.addresslist-arrow-image{
+    width: 56rpx;
+    height: 56rpx;
+}
+
+.addresslist-arrow-icon {
+    width: 16rpx;
+    height: 16rpx;
+    margin-right: 16rpx;
+}
+
+.addresslist-title {
+    color: #353535;
+    font-size: 12px;
+    margin-left: 16rpx;
+    flex: 1;
+}
+

@@ -1,0 +1,7 @@
+/**app.wxss**/
+@import "./components/index.wxss";
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+} 

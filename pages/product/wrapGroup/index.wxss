@@ -1,0 +1,40 @@
+.wrap-group-container{
+    display: flex;
+    flex-direction: column;
+    padding: 16rpx;
+}
+
+.wrap-group-content{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: 8rpx;
+}
+
+.wrap-group-content-title{
+   font-size: 14px;
+   color: #353535;
+}
+
+.wrap-group-children {
+    padding: 4rpx;
+    border: 1px solid red;
+    color: #353535;
+    font-size: 12px;
+    border-radius: 5px;
+    padding-left: 32rpx;
+    padding-right: 32rpx;
+    margin-right: 16rpx;
+}
+
+.wrap-group-children-select {
+    padding: 8rpx;
+    border: 1 solid red;
+    background-color: red;
+    color: white;
+    font-size: 10px;
+    border-radius: 5px;
+    padding-left: 32rpx;
+    padding-right: 32rpx;
+    margin-right: 16rpx;
+}

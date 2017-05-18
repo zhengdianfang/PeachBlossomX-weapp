@@ -1,0 +1,37 @@
+<import src="../../components/toast/index.wxml" />
+<import src="../../components/loading/loading.wxml"/>
+<template is="loading" data="{{ ...$wux.loading }}"/>
+<view class="address-container">
+    <view class="address-row">
+        <text class="address-row-label">收货人</text>
+        <input class="address-row-input" placeholder="名字" style="margin-left: 43rpx;" bindinput="bindInputName"/>
+    </view>
+
+    <view class="address-row">
+        <text class="address-row-label">联系电话</text>
+        <input class="address-row-input" placeholder="手机或固定电话" bindinput="bindInputPhonenum"/>
+    </view>
+    <view class="address-row" style="padding-top: 32rpx;padding-bottom: 32rpx">
+        <text class="address-row-label">收货地区</text>
+        <picker bindchange="bindPickerProvinceChange"  range="{{provinceNames}}" style="flex: 1;margin-left: 16rpx">
+            <view class="address-region-title">{{selectedProvinceName}}</view>
+        </picker>
+        <picker bindchange="bindPickerCityChange"  range="{{cityNames}}" style="flex: 1">
+            <view class="address-region-title">{{selectedCityName}}</view>
+        </picker>
+        <picker bindchange="bindPickerAreaChange"  range="{{areaNames}}" style="flex: 1">
+            <view class="address-region-title">{{selectedAreaName}}</view>
+        </picker>
+    </view>
+     <view class="address-row">
+        <text class="address-row-label">详细地址</text>
+        <input class="address-row-input" placeholder="街道门牌信息" bindinput="bindInputAdress"/>
+    </view>
+     <view class="address-row">
+        <text class="address-row-label">邮政编码</text>
+        <input class="address-row-input" placeholder="邮政编码（选填）" bindinput="bindInputPort"/>
+    </view>
+    <view class="zan-btn zan-btn--primary" style="margin: 32rpx" bindtap="bindSave">保存</view>
+    <view class="zan-btn" style="margin: 32rpx" bindtap="bindBack">取消</view>
+    <template is="zan-toast" data="{{ zanToast }}"></template>
+</view>

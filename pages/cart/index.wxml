@@ -1,0 +1,47 @@
+<!--index.wxml-->
+<import src="../../components/quantity/index.wxml" />
+<import src="../../components/loading/loading.wxml"/>
+<template is="loading" data="{{ ...$wux.loading }}"/>
+<view class="cart-container">
+    <block wx:if="{{cartList.length > 0}}">
+        <scroll-view scroll-y="true" style="flex: 1">
+            <view class="editbar">
+                <text style="color: #aaaaaa;font-size: 14px;padding-right: 8rpx" bindtap="toggleEdit">{{editable ? '完成' : '编辑'}}</text>
+            </view>
+            <checkbox-group bindchange="checkboxChange">
+                    <block wx:for="{{cartList}}" wx:key="{{item.objectId}}">
+                    <view class="cart-item">
+                        <checkbox value="{{item.objectId}}" checked="false" style="align-self: center;margin-left: 16rpx;" color="red"/>
+                        <image src="{{item.productImage}}" class="cart-image"></image>
+                        <block wx:if="{{editable}}">
+                                <view class="cart-column">
+                                <template is="zan-quantity" data="{{ ...quantitys[item.objectId], componentId: item.objectId }}" />
+                                <text class="cart-price">￥{{item.productPrice}}</text>
+                                </view>
+                                <view class="cart-item-delete-button" bindtap="deleteCart" data-cartid="{{item.objectId}}">删除</view>
+                        </block>
+                        <block wx:else>
+                            <view class="cart-column">
+                                <text class="cart-title">{{item.productTitle}}</text>
+                                <view class="cart-row">
+                                    <text class="cart-price">￥{{item.productPrice}}</text>
+                                    <text class="cart-price" style="color: #aaaaaa">x{{item.count}}</text>
+                                </view>
+                            </view>
+                        </block>
+                    </view>
+                    </block>
+            </checkbox-group>
+        </scroll-view>
+    </block>
+    <block wx:else>
+       <text style="color: #353535;font-size: 16px;margin-top: 32rpx">购物车都饿晕了 T_T!!</text>
+      <view class="empty-button" bindtap="goMaimai">去逛逛</view>
+    </block>
+
+<view class="cart-actionbar" wx:if="{{cartList.length > 0}}">
+    <text class="cart-actionbar-price">总价: ￥{{totalPrice}}</text>
+    <view class="cart-button" bindtap="createOrder">结算</view>
+</view>
+</view>
+

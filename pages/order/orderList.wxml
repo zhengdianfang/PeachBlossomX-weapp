@@ -1,0 +1,14 @@
+<import src="orderItem.wxml"/>
+<import src="../../components/loading/loading.wxml"/>
+<import src="../../components/tab/index.wxml" />
+<import src="../../components/loadmore/index.wxml" />
+<template is="loading" data="{{ ...$wux.loading }}"/>
+<view class="order-list-container">
+     <template is="zan-tab" data="{{tab: tabs,  componentId: 'tab'}}"></template>
+     <scroll-view scroll-y="true">
+            <template is="zan-loadmore" data="{{loading: listLoading}}" />
+            <block wx:for="{{items}}" wx:key="{{item.order.objectId}}">
+                <template is="order-item" data="{{item}}"/>
+            </block>
+     </scroll-view>
+</view>

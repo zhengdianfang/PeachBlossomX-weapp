@@ -1,0 +1,119 @@
+@import "../address/addressItem.wxss";
+@import "productItem.wxss";
+.order-detail-container{
+    display: flex;
+    height: 100vh;
+    flex-direction: column;
+    background-color: #f4f4f4;
+}
+
+.order-detail-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-left: 16rpx;
+    padding-right: 16rpx;
+    padding-bottom: 24rpx;
+    padding-top: 24rpx;
+    background-color: white;
+    align-items: center;
+}
+
+.order-detail-address-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 16rpx;
+    align-items: center;
+    background-color: white;
+    margin-top: 1px;
+}
+
+.order-detail-address-container-icon {
+    width: 64rpx;
+    height: 64rpx;
+}
+
+.order-detail-address-container-placeholder {
+    font-size: 14px;
+    color: #aaaaaa;
+    margin-left: 16rpx;
+    flex: 1;
+}
+
+.order-detail-address-container-arrow-icon {
+    width: 16rpx;
+    height: 16rpx;
+}
+
+.order-detail-product {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 16rpx;
+    background-color: white;
+    margin-top: 1px;
+}
+
+.order-detail-product-image {
+    width: 140rpx;
+    height: 140rpx;
+}
+
+.order-detail-product-column {
+    display: flex;
+    margin-left: 16rpx;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.order-detail-product-title {
+    font-size: 14px;
+    color: #353535;
+}
+
+.order-detail-product-unitprice{
+    font-size: 12px;
+    color: #aaaaaa;
+    margin-top: 16rpx;
+}
+
+.order-detail-product-message-input {
+    font-size: 12px;
+    color: #353535;
+    height: 32rpx;
+    margin-left: 64rpx;
+}
+.order-detail-total-price {
+    color: red;
+    font-size: 14px;
+}
+
+.order-detail-actionbar {
+  height: 7vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-self: flex-end;
+  align-items: center;
+  background-color: white;
+  width: 100%;
+  border-detail-top: 1px solid #f4f4f4;
+}
+.order-detail-actionbar-sumbit {
+    display: flex;
+    height: 100%;
+    width: 160rpx;
+    color: white;
+    font-size: 14px;
+    align-items: center;
+    justify-content: center;
+    background-color: red;
+    margin-left: 64rpx;
+}
+
+.order-detail-actionbar-price {
+    font-size: 14px;
+    color: red;
+    margin-left: 16rpx;
+}

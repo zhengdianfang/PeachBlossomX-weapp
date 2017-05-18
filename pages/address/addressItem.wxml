@@ -1,0 +1,14 @@
+<template name="address-item">
+	<view class="address-item">
+        <block wx:if="{{editable}}">
+            <radio  value="{{address.objectId}}" checked="{{address.current}}"  color="red"/>
+        </block>
+		<view class="address-item-userinfo">
+            <view style=" display: flex;flex-direction: row;align-items: center;">
+                <image src="../../images/locale.png" style="width: 32rpx; height: 32rpx"></image>
+                <text class="address-item-username">收货人：{{address.username}}, {{address.phonenum}}</text>
+            </view>
+            <text class="address-item-location">收货地址： {{address.province}}{{address.city}}{{address.area}}{{address.addr}}</text>
+        </view>
+	</view>
+</template>

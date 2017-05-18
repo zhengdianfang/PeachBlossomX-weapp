@@ -1,0 +1,44 @@
+<import src="../address/addressItem.wxml" />
+<import src="../../components/loading/loading.wxml"/>
+<import src="productItem.wxml"/>
+<template is="loading" data="{{ ...$wux.loading }}"/>
+ <view class="order-detail-container">
+    <scroll-view scroll-y="true" style="flex: 1">
+        <block wx:if="{{order.address}}">
+            <view>
+                <template is="address-item" data="{{address: order.address, editable: false}}" ></template>
+            </view>
+        </block>
+        <block wx:else>
+            <view class="order-detail-address-container" bindtap="addReciverProductAddress">
+                <image src="../../images/add.png" class="order-detail-address-container-icon"></image>
+                <text class="order-detail-address-container-placeholder">新增收货地址</text>
+                <image src="../../images/ic_rightarrow.png" class="order-detail-address-container-arrow-icon"></image>
+            </view> 
+        </block>
+        <template is="product-item" data="{{products: order.products}}"/>
+        <view class="order-detail-row" style=" margin-top: 1px;">
+            <text class="order-detail-product-title">配送方式</text>
+            <text class="order-detail-product-title" style="color: #aaaaaa">{{order.freight === 0  ? '免运费' : '快递'}}</text>
+        </view>
+        <view class="order-detail-row" style=" margin-top: 1px; justify-content: flex-start">
+            <text class="order-detail-product-title">留言</text>
+            <text class="order-detail-product-message-input"></text>
+        </view>
+        <view class="order-detail-row" style=" margin-top: 1px;">
+            <text class="order-detail-product-title">合计</text>
+            <text class="order-detail-total-price">￥{{order.totalPrice}}</text>
+        </view>
+        <view class="order-detail-row">
+            <text class="order-detail-product-title">运费</text>
+            <text class="order-detail-total-price" style="color: #aaaaaa">+ ￥{{order.freight}}</text>
+        </view>
+    </scroll-view>
+    <view class="order-detail-actionbar">
+        <view>
+            <text class="order-detail-actionbar-price" style="color: #aaaaaa">合计</text>
+            <text class="order-detail-actionbar-price">￥{{order.totalPrice + order.freight}}</text>
+        </view>
+        <view class="order-detail-actionbar-sumbit" bindtap="commitOrder" style=" background-color: {{buttonColor}}">{{buttonText}}</view>
+    </view>
+</view>

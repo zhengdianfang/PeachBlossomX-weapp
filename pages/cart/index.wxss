@@ -1,0 +1,112 @@
+/**index.wxss**/
+.cart-container{
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  align-items: center;
+}
+
+.cart-item{
+  display: flex;
+  flex-direction: row;
+  background-color: white;
+  margin-top: 1px;
+}
+
+.cart-image {
+  width: 180rpx;
+  height: 180rpx;
+  padding: 16rpx;
+}
+
+.cart-title {
+  color: #353535;
+  font-size: 14px;
+  margin-top: 0px;
+}
+
+.cart-price{
+  color: red;
+  font-size: 14px;
+}
+
+.cart-row{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.cart-column{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
+  padding-top: 16rpx;
+  padding-bottom: 16rpx;
+  padding-right: 16rpx;
+}
+
+.cart-actionbar{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  align-self: flex-end;
+  height: 7vh;
+  background-color: white;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid #f4f4f4;
+}
+
+.cart-actionbar-price{
+  color: red;
+  font-size: 14px;
+  margin-left: 16rpx;
+}
+
+.cart-button {
+  background-color: red;
+  color:white;
+  font-size: 16px;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  height: 100%;
+  width: 20vh;
+}
+
+.editbar{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  padding: 8rpx;
+  background-color: white;
+}
+
+.cart-item-delete-button{
+  background-color: red;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 16px;
+  width: 10vh;
+  padding-left: -16rpx;
+  padding-top: -16rpx;
+  padding-bottom: -16rpx;
+  
+}
+
+.empty-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid red;
+  padding-left: 32rpx;
+  padding-right: 32rpx;
+  padding-top: 8rpx;
+  padding-bottom: 8rpx;
+  color: red;
+  font-size: 14px;
+  margin-top: 32rpx;
+}

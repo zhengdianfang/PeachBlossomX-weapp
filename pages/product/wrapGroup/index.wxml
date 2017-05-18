@@ -1,0 +1,15 @@
+<template name="wrapGroup">
+    <view class="wrap-group-container">
+        <text class="wrap-group-content-title">{{title}}</text>
+        <view class="wrap-group-content">
+             <view class="{{selectFlavor === item ? ' wrap-group-children-select' : 'wrap-group-children'}}" 
+                wx:for="{{values}}"
+                wx:key="{{item}}" 
+                bindtap="bindWrapGroupChildrenClick" 
+                data-text="{{item}}"
+                data-component-id="{{ componentId }}">
+                    {{item}}
+            </view>
+        </view>
+    </view>
+</template>

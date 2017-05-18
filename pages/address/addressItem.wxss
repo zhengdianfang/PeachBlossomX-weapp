@@ -1,0 +1,27 @@
+.address-item{
+  padding: 16rpx;
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 1px;
+}
+
+.address-item-userinfo{
+    display: flex;
+    flex-direction: column;
+}
+
+.address-item-username {
+    font-size: 14px;
+    color: #353535;
+    margin-left: 8rpx;  
+}
+
+.address-item-location {
+    font-size: 10px;
+    color: #aaaaaa;
+    margin-top: 8rpx;
+    margin-left: 40rpx;
+}
+

@@ -1,0 +1,22 @@
+<import src="productItem.wxml"/>
+<template name="order-item">
+    <view class="order-item-container" bindtap="openOrderDetail" data-orderid="{{item.order.objectId}}">
+        <view class="order-item-row">
+            <text class="order-item-primary-font">订单号: {{item.order.objectId}}</text>
+            <text class="order-item-primary-font" style="color: red">{{item.statusText}}</text>
+        </view>
+        <template is="product-item" data="{{products: [item.order.products[0]]}}"/>
+        <view wx:if="{{item.order.products.length > 0}}" class="order-item-row" style="justify-content: center">
+            <text class="order-item-primary-font">查看全部{{item.order.products.lenght}}件商品</text>
+        </view>
+        <view class="order-item-row">
+            <text class="order-item-primary-font" style=" align-self: flex-end">合计：</text>
+            <text class="order-item-primary-font" style="align-self: flex-end;color: red">￥{{item.order.totalPrice}}</text>
+        </view>
+        <view wx:if="{{item.isShowButtons}}" class="order-item-row" style="justify-content: flex-end;">
+            <view wx:if="{{item.cancelButtonText !== ''}}" class="order-item-normal-button" catchtap="closeOrder" data-orderid="{{item.order.objectId}}">{{item.cancelButtonText}}</view>
+            <view class="order-item-comfrim-button" catchtap="changeOrderStatus" data-orderid="{{item.order.objectId}}" data-status="{{item.order.status}}">{{item.comfrimButtonText}}</view>
+        </view>
+    </view>
+
+</template>

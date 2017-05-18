@@ -1,0 +1,38 @@
+.address-container{
+  height: 100vh;
+  background-color: #f4f4f4;
+}
+
+.address-row{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-top: 16rpx;
+    padding-bottom: 16rpx;
+    padding-right: 32rpx;
+    padding-left: 32rpx;
+    align-items: center;
+    background-color: white;
+    margin-top: 1px;
+}
+
+.address-row-label{
+    color: #353535;
+    font-size: 14px;
+}
+
+.address-row-input{
+    color: #aaaaaa;
+    font-size: 14px;
+    flex: 1;
+    margin-left: 16rpx;
+}
+
+.address-region{
+    flex: 1
+}
+
+.address-region-title {
+    font-size: 12px;
+    color: #aaaaaa;
+}
