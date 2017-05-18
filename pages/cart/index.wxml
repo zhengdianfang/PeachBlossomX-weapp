@@ -15,14 +15,16 @@
                         <image src="{{item.productImage}}" class="cart-image"></image>
                         <block wx:if="{{editable}}">
                                 <view class="cart-column">
-                                <template is="zan-quantity" data="{{ ...quantitys[item.objectId], componentId: item.objectId }}" />
-                                <text class="cart-price">￥{{item.productPrice}}</text>
+                                    <template is="zan-quantity" data="{{ ...quantitys[item.objectId], componentId: item.objectId }}" />
+                                    <text class="cart-flavor">{{item.productFlavor}}</text>
+                                    <text class="cart-price">￥{{item.productPrice}}</text>
                                 </view>
                                 <view class="cart-item-delete-button" bindtap="deleteCart" data-cartid="{{item.objectId}}">删除</view>
                         </block>
                         <block wx:else>
                             <view class="cart-column">
                                 <text class="cart-title">{{item.productTitle}}</text>
+                                <text class="cart-flavor">{{item.productFlavor}}</text>
                                 <view class="cart-row">
                                     <text class="cart-price">￥{{item.productPrice}}</text>
                                     <text class="cart-price" style="color: #aaaaaa">x{{item.count}}</text>
