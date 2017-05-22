@@ -4,7 +4,7 @@
 <template is="loading" data="{{ ...$wux.loading }}"/>
 <view class="cart-container">
     <block wx:if="{{cartList.length > 0}}">
-        <scroll-view scroll-y="true" style="flex: 1">
+        <scroll-view scroll-y="true" style="height: 93vh">
             <view class="editbar">
                 <text style="color: #aaaaaa;font-size: 14px;padding-right: 8rpx" bindtap="toggleEdit">{{editable ? '完成' : '编辑'}}</text>
             </view>

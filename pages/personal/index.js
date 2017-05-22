@@ -1,6 +1,8 @@
 //index.js
 //获取应用实例
-const AV = require('../../libs/av-weapp-min')
+import AV from '../../libs/av-weapp-min'
+import Loading from '../../components/loading/loading'
+
 var app = getApp()
 Page({
   data: {

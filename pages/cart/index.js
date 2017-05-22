@@ -35,9 +35,9 @@ Page(Object.assign({}, Quantity,{
           }
           return cart
         })
-        const totalPrice = this.calTotalPrice(cartList)
+        this.calTotalPrice(cartList)
         this.selectIds = _.map(cartList, elem => elem.objectId)
-        this.setData({cartList, totalPrice, quantitys})
+        this.setData({cartList, quantitys})
         Loading.hide()
       }).catch(e => console.error(e))
   },
@@ -46,7 +46,7 @@ Page(Object.assign({}, Quantity,{
   },
   checkboxChange(e) {
     this.selectIds = e.detail.value
-    const findArray = _.filter(this.data.cartList, (elem) => _.includes(selectIds, elem.objectId))
+    const findArray = _.filter(this.data.cartList, (elem) => _.includes(this.selectIds, elem.objectId))
     this.calTotalPrice(findArray)
    
   },

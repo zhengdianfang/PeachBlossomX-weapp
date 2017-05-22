@@ -126,6 +126,7 @@ Page(Object.assign({}, Toast, {
       // console.log(address.toJSON())
         Loading.hide()
         this.showZanToast('保存成功')
+        app.updateUserAddressList()
         wx.navigateBack()
     }) 
   },

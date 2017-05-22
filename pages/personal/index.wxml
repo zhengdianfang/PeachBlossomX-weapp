@@ -1,4 +1,6 @@
 <!--index.wxml-->
+<import src="../../components/loading/loading.wxml"/>
+<template is="loading" data="{{ ...$wux.loading }}"/>
 <view class="personal-container">
     <view class="personal-header">
         <image src="{{user.avatarUrl}}" class="personal-header-image"></image>
