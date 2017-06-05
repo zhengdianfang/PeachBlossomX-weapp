@@ -10,7 +10,8 @@ Page({
   data: {
     order: {},
     buttonText: ORDER_STATUS_STRING[0],
-    buttonColor: ''
+    buttonColor: '',
+    showConfrimDialog: false,
   },
   onLoad: function(props) {
       Loading.show({text: '加载数据...'})
@@ -41,7 +42,55 @@ Page({
   addMessage(e) {
       
   },
-  commitOrder(e) {
+  changeOrderStatus(e) {
+    const status = this.data.order.status
+    switch(status){
+         case ORDER_STATUS.WILL_PAY:
+            this.wepayRequest()
+            break
+         case ORDER_STATUS.WILL_SNED:
+            break
+         case ORDER_STATUS.WILL_RECIVER:
+            this.setData({showConfrimDialog: true})
+            
+            break
+    }
+  },
+  wepayRequest() {
+     Loading.show({text: '正在提交订单...'})
+     AV.Cloud.run('order',  {orderId: this.data.order.objectId, amount:  this.data.order.freight +  this.data.order.totalPrice}).then((data) => {
+              data.success = () => {
+                // 支付成功
+                Loading.hide()
+                this.onLoad({orderId: this.data.order.objectId})
+              }
+              data.fail = ({ errMsg }) => {
+                // 错误处理
+                Loading.hide()
+              }
+              wx.requestPayment(data);
+            }).catch(error => {
+              // 错误处理
+              Loading.hide()
+            })
+  },
+
+  cancelConfrimDialog() {
+    this.setData({showConfrimDialog: false})
+  },
+
+  okConfrimDialog(e) {
+    this.setData({showConfrimDialog: false})
+    Loading.show({text: '提交中...'})
+    const orderObj = AV.Object.createWithoutData(ORDER_TABLENAME, this.data.order.objectId)
+                orderObj.set('status', ORDER_STATUS.WILL_FINFISH)
+                orderObj.save().then((order) => {
+                  console.log(1111222)
+                  Loading.hide()
+                  this.onLoad({orderId: this.data.order.objectId})
+                }, (error) => {
+                  Loading.hide()
+                });
   }
  
 })

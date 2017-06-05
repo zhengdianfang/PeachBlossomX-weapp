@@ -16,6 +16,7 @@ Page({
       address: {},
       freight: 0,
     },
+    inputValue: '',
   },
   cartIds: [],
   onLoad: function(props) {
@@ -73,8 +74,8 @@ Page({
        delete elem.updatedAt
        delete elem.top
      })
-     const user = AV.User.current().toJSON()
-     order.userId = user.objectId
+     order.user = AV.User.current()
+     order.message = this.data.inputValue
      order.status = ORDER_STATUS.WILL_PAY
      new Order(order).save().then(res => {
        const order = res.toJSON()
@@ -85,6 +86,11 @@ Page({
        wx.redirectTo({url: './orderDetail?orderId=' + order.objectId})
        Loading.hide()
      })
-  }
+  },
+  bindKeyInput(e) {
+    this.setData({
+      inputValue: e.detail.value
+    })
+  },
  
 })

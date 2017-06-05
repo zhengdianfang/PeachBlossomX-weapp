@@ -1,4 +1,5 @@
 @import "orderItem.wxss";
+@import "confrimDialog.wxss";
 .order-list-container{
     display: flex;
     height: 100vh;
@@ -7,6 +8,7 @@
 
 .order-list-scrollview {
     display: flex;
+    height: 90vh;
     align-items: center;
     justify-content: center;
 }

@@ -1,0 +1,11 @@
+<template name="confrim-dialog">
+    <view class="confrim-dialog" style="display: {{showConfrimDialog ? 'flex' : 'none'}}">
+        <view class="confrim-dialog-container">
+            <text class="confrim-dialog-content">{{content}}}</text>
+            <view class="confrim-dialog-buttons">
+                <view class="confrim-dialog-cancel-button" bindtap="cancelConfrimDialog">取消</view>
+                <view class="confrim-dialog-yes-button" bindtap="okConfrimDialog">确认</view>
+            </view>
+        </view>
+    </view>
+</template>

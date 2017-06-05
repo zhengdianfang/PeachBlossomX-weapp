@@ -1,5 +1,6 @@
 @import "../address/addressItem.wxss";
 @import "productItem.wxss";
+@import "confrimDialog.wxss";
 .order-detail-container{
     display: flex;
     height: 100vh;

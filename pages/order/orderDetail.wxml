@@ -1,7 +1,9 @@
 <import src="../address/addressItem.wxml" />
 <import src="../../components/loading/loading.wxml"/>
 <import src="productItem.wxml"/>
+<import src="confrimDialog.wxml"/>
 <template is="loading" data="{{ ...$wux.loading }}"/>
+<template is="confrim-dialog" data="{{showConfrimDialog, content: '确认收货吗？'}}"/>
  <view class="order-detail-container">
     <scroll-view scroll-y="true" style="flex: 1">
         <block wx:if="{{order.address}}">
@@ -23,7 +25,7 @@
         </view>
         <view class="order-detail-row" style=" margin-top: 1px; justify-content: flex-start">
             <text class="order-detail-product-title">留言</text>
-            <text class="order-detail-product-message-input"></text>
+            <text class="order-detail-product-message-input">{{order.message}}</text>
         </view>
         <view class="order-detail-row" style=" margin-top: 1px;">
             <text class="order-detail-product-title">合计</text>
@@ -39,6 +41,6 @@
             <text class="order-detail-actionbar-price" style="color: #aaaaaa">合计</text>
             <text class="order-detail-actionbar-price">￥{{order.totalPrice + order.freight}}</text>
         </view>
-        <view class="order-detail-actionbar-sumbit" bindtap="commitOrder" style=" background-color: {{buttonColor}}">{{buttonText}}</view>
+        <view class="order-detail-actionbar-sumbit" bindtap="changeOrderStatus" style=" background-color: {{buttonColor}}">{{buttonText}}</view>
     </view>
 </view>

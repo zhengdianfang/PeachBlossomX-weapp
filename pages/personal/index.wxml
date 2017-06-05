@@ -9,7 +9,7 @@
 
     <view class="personal-row">
         <text class="personal-title">我的订单</text>
-        <text class="personal-secondary" style="flex: 1;padding-right: 16rpx;text-align: right;" bindtap="openOrderList">查看全部订单</text>
+        <text class="personal-secondary" style="flex: 1;padding-right: 16rpx;text-align: right;" bindtap="openOrderList" data-status="-1">查看全部订单</text>
         <image src="../../images/ic_rightarrow.png" style="width: 16rpx; height: 16rpx"></image>
     </view>
 

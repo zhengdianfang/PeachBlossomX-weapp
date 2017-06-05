@@ -5,6 +5,7 @@ import {Cart, CART_TABLENAME} from '../../models/cart'
 import Toast from '../../components/toast/index'
 import Loading from '../../components/loading/loading'
 
+let productId = ''
 Page(Object.assign({}, Quantity, Toast,{
   data: {
     showDialog: false,
@@ -16,14 +17,15 @@ Page(Object.assign({}, Quantity, Toast,{
     },
     isJustPay: false,
     selectFlavor: '',
+    isLoading: true,
   },
   onReady: function () {
    
   },
-  onLoad: function (props) {
-     Loading.show({text: '加载数据...'})
+  onPullDownRefresh: function() {
+    //Do some when page pull down.
      new AV.Query('Product')
-      .get(props.id)
+      .get(this.productId)
       .then(res => {
         const product = res.toJSON()
         const selectFlavor = _.head(product.flavor)
@@ -31,11 +33,19 @@ Page(Object.assign({}, Quantity, Toast,{
           product,
           quantity: { quantity: 1, min: 1,max: product.repertory - 1},
           selectFlavor,
+          isLoading: false,
         })
         Loading.hide()
       })
       .catch(console.error);
   },
+  onLoad: function (props) {
+     Loading.show({text: '加载数据...'})
+     this.productId = props.id
+      this.setData({isLoading: true})
+     this.onPullDownRefresh()
+  },
+ 
   toggleDialog(e) {
     this.setData({
       showDialog: !this.data.showDialog,

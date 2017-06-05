@@ -13,8 +13,9 @@
   "window":{
     "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
-    "navigationBarTextStyle":"black"
+    "navigationBarTitleText": "桃花妖",
+    "navigationBarTextStyle":"black",
+    "enablePullDownRefresh" : true
   },
 
   "tabBar": {

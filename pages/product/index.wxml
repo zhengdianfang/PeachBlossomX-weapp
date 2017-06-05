@@ -5,71 +5,74 @@
 <import src="wrapGroup/index.wxml"/>
 <template is="loading" data="{{ ...$wux.loading }}"/>
  <template is="zan-toast" data="{{ zanToast }}"></template>
- <view class="container">
-   <scroll-view scroll-y="true" class="scroll-view">
-      <swiper indicator-dots="{{true}}"
-          autoplay="{{true}}"
-          style="height: 50vh">
-          <block wx:key="{{item}}" wx:for="{{product.images}}">
-            <swiper-item>
-              <image src="{{item}}" class="slide-image" mode="aspectFill"/>
-            </swiper-item>
-          </block>
-        </swiper>
-        <view class="content">
-            <text class="content-title">{{product.title}}</text>
-            <text class="content-price">￥{{product.price}}</text>
-            <view class="content-count">
-                 <text class="content-count-sheng">剩余: {{product.repertory}}</text>
+<block wx:if="{{!isLoading}}">
+        <view class="container">
+        <scroll-view scroll-y="true" class="scroll-view">
+            <swiper indicator-dots="{{true}}"
+                autoplay="{{true}}"
+                style="height: 50vh">
+                <block wx:key="{{item}}" wx:for="{{product.images}}">
+                    <swiper-item>
+                    <image src="{{item}}" class="slide-image" mode="aspectFill"/>
+                    </swiper-item>
+                </block>
+                </swiper>
+                <view class="content">
+                    <text class="content-title">{{product.title}}</text>
+                    <text class="content-price">￥{{product.price}}</text>
+                    <view class="content-count">
+                        <text class="content-count-sheng">剩余: {{product.repertory}}</text>
+                    </view>
+                    <view class="description">
+                        <text class="description-title">商品详情</text>
+                            <image  
+                                wx:key="{{item.content}}" 
+                                wx:for="{{product.description}}" 
+                                wx:if="{{item.type === 'image'}}" 
+                                src="{{item.content}}" 
+                                class="description-content-image"
+                                mode="widthFix"
+                            />
+                    </view>
+                
+                </view>
+        </scroll-view>
+        <view class="actionbar">
+            <view class="actionbar-shopcart" bindtap="openCart">
+                <image src="../../images/shopcart_select.png" style="height:36rpx ;width: 36rpx"/>
             </view>
-            <view class="description">
-                <text class="description-title">商品详情</text>
-                    <image  
-                        wx:key="{{item.content}}" 
-                        wx:for="{{product.description}}" 
-                        wx:if="{{item.type === 'image'}}" 
-                        src="{{item.content}}" 
-                        class="description-content-image"
-                        mode="widthFix"
-                    />
+            <view  class="actionbar-addshopcart" bindtap="toggleDialog" data-isjustpay="{{false}}">
+                <text style="font-size: 16px;color: white;">加入购物车</text>
             </view>
-          
+                <view  class="actionbar-justpay" bindtap="toggleDialog" data-isjustpay="{{true}}">
+                <text style="font-size: 16px;color: white;">立即购买</text>
+            </view>
         </view>
-   </scroll-view>
-   <view class="actionbar">
-       <view class="actionbar-shopcart" bindtap="openCart">
-           <image src="../../images/shopcart_select.png" style="height:36rpx ;width: 36rpx"/>
-       </view>
-       <view  class="actionbar-addshopcart" bindtap="toggleDialog" data-isjustpay="{{false}}">
-          <text style="font-size: 16px;color: white;">加入购物车</text>
-       </view>
-        <view  class="actionbar-justpay" bindtap="toggleDialog" data-isjustpay="{{true}}">
-          <text style="font-size: 16px;color: white;">立即购买</text>
-       </view>
-   </view>
 
-    <view class="zan-dialog {{ showDialog ? 'zan-dialog--show' : '' }}">
-        <view class="zan-dialog__mask" bindtap="toggleDialog" />
-        <view class="zan-dialog__container">
-            <view class="dialog-proudct-info">
-                <image src="{{product.images[0]}}" class="dialog-image" mode="aspectFill"/>
-                <view class="dialog-product-header">
-                    <text class="dialog-product-header-title">{{product.title}}</text>
-                    <text  class="dialog-product-header-price">￥{{product.price}}</text>
+        <view class="zan-dialog {{ showDialog ? 'zan-dialog--show' : '' }}">
+                <view class="zan-dialog__mask" bindtap="toggleDialog" />
+                <view class="zan-dialog__container">
+                    <view class="dialog-proudct-info">
+                        <image src="{{product.images[0]}}" class="dialog-image" mode="aspectFill"/>
+                        <view class="dialog-product-header">
+                            <text class="dialog-product-header-title">{{product.title}}</text>
+                            <text  class="dialog-product-header-price">￥{{product.price}}</text>
+                        </view>
+                    </view>
+                    <view class="divide"></view>
+                    <template is="wrapGroup" data="{{values: product.flavor, title: '口味', selectFlavor}}" />
+                    <view class="divide"></view>
+                    <view class="product-count">
+                        <view class="actionbar-column">
+                            <text style="font-size: 14px; color: #353535">购买数量</text>
+                            <text style="font-size: 10px; color: #aaaaaa">剩余{{product.repertory - quantity.quantity}}件</text>
+                        </view>
+                        <template is="zan-quantity" data="{{ ...quantity, componentId: 'customId' }}" />
+                    </view>
+                    <view class="product-confrim-button" bindtap="{{isJustPay ? 'createOrder' : 'addToCart'}}">{{isJustPay ? '确定': '下一步'}}</view>
                 </view>
             </view>
-            <view class="divide"></view>
-            <template is="wrapGroup" data="{{values: product.flavor, title: '口味', selectFlavor}}" />
-             <view class="divide"></view>
-            <view class="product-count">
-                <view class="actionbar-column">
-                     <text style="font-size: 14px; color: #353535">购买数量</text>
-                     <text style="font-size: 10px; color: #aaaaaa">剩余{{product.repertory - quantity.quantity}}件</text>
-                </view>
-                <template is="zan-quantity" data="{{ ...quantity, componentId: 'customId' }}" />
-            </view>
-            <view class="product-confrim-button" bindtap="{{isJustPay ? 'createOrder' : 'addToCart'}}">{{isJustPay ? '确定': '下一步'}}</view>
         </view>
-    </view>
- </view>
+</block>
+
 

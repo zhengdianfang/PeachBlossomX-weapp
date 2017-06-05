@@ -2,18 +2,23 @@
 <import src="../../components/loading/loading.wxml"/>
 <import src="../../components/tab/index.wxml" />
 <import src="../../components/loadmore/index.wxml" />
+<import src="confrimDialog.wxml"/>
 <template is="loading" data="{{ ...$wux.loading }}"/>
+<template is="confrim-dialog" data="{{showConfrimDialog, content: '确认收货吗？'}}"/>
 <view class="order-list-container">
-     <template is="zan-tab" data="{{tab: tabs,  componentId: 'tab'}}"></template>
+     <template is="zan-tab" data="{{tabs,  componentId: 'tab'}}"></template>
      <scroll-view scroll-y="true" class="order-list-scrollview">
             <template is="zan-loadmore" data="{{loading: listLoading}}" />
-            <block wx:if="{{items.length === 0}}"> 
-                <text style="font-size: 14px; color: gray;margin-top: 32rpx;">暂无订单</text>
-            </block>
-            <block wx:else>
-                <block wx:for="{{items}}" wx:key="{{item.order.objectId}}">
-                    <template is="order-item" data="{{item}}"/>
+            <block wx:if="{{!listLoading}}">
+                <block wx:if="{{items.length === 0}}"> 
+                    <text style="font-size: 14px; color: gray;margin-top: 32rpx;">暂无订单</text>
                 </block>
+                <block wx:else>
+                    <block wx:for="{{items}}" wx:key="{{item.order.objectId}}">
+                        <template is="order-item" data="{{item}}"/>
+                    </block>
+                </block>
+
             </block>
      </scroll-view>
 </view>

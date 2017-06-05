@@ -5,6 +5,8 @@ import { ORDER_STATUS_STRING, ORDER_STATUS } from '../../utils/constants'
 import Loading from '../../components/loading/loading'
 import Tab from '../../components/tab/index'
 
+var app = getApp()
+
 Page(Object.assign({}, Tab,{
   data: {
     items: [],
@@ -19,9 +21,12 @@ Page(Object.assign({}, Tab,{
       selectedId: -1,
       scroll: false
     },
-    listLoading: true
+    listLoading: true,
+    showConfrimDialog: false,
   },
   status: -1,
+  clickOrderId: '',
+
   onLoad: function(options) {
     //Do some initialize when page load.
     const tabs = _.cloneDeep(this.data.tabs)
@@ -58,6 +63,7 @@ Page(Object.assign({}, Tab,{
      if (this.status >= 0 ) {
          query.equalTo('status', this.status)
      }
+     query.equalTo('user', AV.User.current())
      query.find()
         .then((results) => {
             const items = _.map(results, elem => {
@@ -104,27 +110,19 @@ Page(Object.assign({}, Tab,{
 
   changeOrderStatus(e) {
     const orderId = e.currentTarget.dataset.orderid
-    let status = e.currentTarget.dataset.status
+    const status = e.currentTarget.dataset.status
+    const amount = e.currentTarget.dataset.amount
     switch(status){
          case ORDER_STATUS.WILL_PAY:
-            status = ORDER_STATUS.WILL_SNED
+            this.wepayRequest(orderId, amount)
             break
          case ORDER_STATUS.WILL_SNED:
-            status = ORDER_STATUS.WILL_RECIVER
             break
          case ORDER_STATUS.WILL_RECIVER:
-            status = ORDER_STATUS.WILL_FINFISH
+            this.setData({showConfrimDialog: true})
+            this.clickOrderId = orderId
             break
-    }1
-    const orderObj = AV.Object.createWithoutData(ORDER_TABLENAME, orderId)
-    orderObj.set('status', status)
-    orderObj.save().then((order) => {
-       this.requestOrderList()
-       Loading.hide()
-    }, (error) => {
-       Loading.hide()
-    });
-
+    }
   },
   
   handleZanTabChange(e) {
@@ -142,6 +140,46 @@ Page(Object.assign({}, Tab,{
         const orderId = e.currentTarget.dataset.orderid
         wx.navigateTo({url: './orderDetail?orderId=' + orderId})
       }
+  },
+
+  wepayRequest(orderId, amount) {
+     Loading.show({text: '正在提交订单...'})
+
+     AV.Cloud.run('order', {orderId, amount}).then((data) => {
+              data.success = () => {
+                // 支付成功
+                Loading.hide()
+                this.onLoad({status: this.status})
+              }
+              data.fail = ({ errMsg }) => {
+                // 错误处理
+                Loading.hide()
+                console.log(errMsg)
+              }
+              wx.requestPayment(data);
+            }).catch(error => {
+              // 错误处理
+              Loading.hide()
+              console.log(error)
+            })
+  },
+  cancelConfrimDialog() {
+    this.setData({showConfrimDialog: false})
+  },
+
+  okConfrimDialog(e) {
+    this.setData({showConfrimDialog: false})
+    if (!_.isEmpty(this.clickOrderId)) {
+      Loading.show({text: '提交中...'})
+      const orderObj = AV.Object.createWithoutData(ORDER_TABLENAME, this.clickOrderId)
+      orderObj.set('status', ORDER_STATUS.WILL_FINFISH)
+      orderObj.save().then((order) => {
+        Loading.hide()
+        this.onLoad({status: this.status})
+      }, (error) => {
+        Loading.hide()
+      });
+    }
   }
 
 }))
