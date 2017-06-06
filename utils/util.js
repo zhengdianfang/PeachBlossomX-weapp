@@ -21,7 +21,7 @@ function formatNumber(n) {
 const N9City = ['甘孜藏族自治州', '凉山彝族自治州']//1KG内9元 ，每增加1KG加6元
 const N9Province = ['海南省', '青海省', '吉林省', '辽宁省', '黑龙江省'] //1KG内9元 ，每增加1KG加6元
 const N12Province = ['新疆维吾尔自治区新疆', '内蒙古自治区', '西藏自治区'] //1KG内12元 ，每增加1KG加9元
-const free_balance = 500
+const free_balance = 120
 /**川内 1KG内7元 ，每增加1KG加3元
  * 川外 1KG内7元 ，每增加1KG加3元
  */

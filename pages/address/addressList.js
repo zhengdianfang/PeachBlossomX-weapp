@@ -1,5 +1,5 @@
 import AV from '../../libs/av-weapp-min'
-import Address from '../../models/address'
+import {Address, ADDRESS_TABLENAME} from '../../models/address'
 import _ from '../../libs/lodash.js'
 import Loading from '../../components/loading/loading'
 
@@ -20,6 +20,15 @@ Page({
   },
   onShow: function() {
     //Do some when page show.
+    const user = AV.User.current().toJSON()
+    new AV.Query(ADDRESS_TABLENAME)
+        .equalTo('userId', user.objectId)
+        .descending('current')
+        .find()
+        .then((res) => {
+            const addressList = _.map(res, elem => elem.toJSON())
+            this.setData({addressList})
+        }).catch(e => console.error(e));
   },
   onHide: function() {
     //Do some when page hide.
@@ -36,7 +45,7 @@ Page({
   radioChange(e) {
     const selectId = e.detail.value
     _.each(app.addressList, (elem) => {
-        var address = AV.Object.createWithoutData('Address', elem.objectId);
+        var address = AV.Object.createWithoutData(ADDRESS_TABLENAME, elem.objectId);
         address.set('current', elem.objectId === selectId);
         elem.current = elem.objectId === selectId
         address.save();

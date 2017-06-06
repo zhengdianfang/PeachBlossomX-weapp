@@ -1,5 +1,7 @@
 const AV = require('../libs/av-weapp-min');
 
+const ADDRESS_TABLENAME = 'Address'
+
 class Address extends AV.Object {
   get objectId() { return this.get('objectId'); }
   
@@ -29,4 +31,4 @@ class Address extends AV.Object {
 } 
 AV.Object.register(Address);
 
-module.exports = Address;
+module.exports = {Address, ADDRESS_TABLENAME};

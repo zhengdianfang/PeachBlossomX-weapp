@@ -21,17 +21,21 @@
         <template is="product-item" data="{{products: order.products}}"/>
         <view class="order-detail-row" style=" margin-top: 1px;">
             <text class="order-detail-product-title">配送方式</text>
-            <text class="order-detail-product-title" style="color: #aaaaaa">{{order.freight === 0  ? '免运费' : '快递'}}</text>
+            <text class="order-detail-product-title" style="color: #aaaaaa">{{order.distribution == 0 ? (order.freight === 0  ? '免运费' : '快递') : '无需物流'}}</text>
         </view>
         <view class="order-detail-row" style=" margin-top: 1px; justify-content: flex-start">
             <text class="order-detail-product-title">留言</text>
             <text class="order-detail-product-message-input">{{order.message}}</text>
         </view>
+        <view wx:if="{{order.courier_number}}" class="order-detail-row" style=" margin-top: 1px">
+            <text class="order-detail-product-title">快递单号</text>
+            <text class="order-detail-product-title" style="color: #aaaaaa" selectable="true">{{order.courier_number}}</text>
+        </view>
         <view class="order-detail-row" style=" margin-top: 1px;">
             <text class="order-detail-product-title">合计</text>
             <text class="order-detail-total-price">￥{{order.totalPrice}}</text>
         </view>
-        <view class="order-detail-row">
+        <view wx:if="{{order.distribution == 0}}" class="order-detail-row">
             <text class="order-detail-product-title">运费</text>
             <text class="order-detail-total-price" style="color: #aaaaaa">+ ￥{{order.freight}}</text>
         </view>
@@ -39,7 +43,7 @@
     <view class="order-detail-actionbar">
         <view>
             <text class="order-detail-actionbar-price" style="color: #aaaaaa">合计</text>
-            <text class="order-detail-actionbar-price">￥{{order.totalPrice + order.freight}}</text>
+            <text class="order-detail-actionbar-price">￥{{order.totalPrice + (order.distribution == 0 ? order.freight : 0)}}</text>
         </view>
         <view class="order-detail-actionbar-sumbit" bindtap="changeOrderStatus" style=" background-color: {{buttonColor}}">{{buttonText}}</view>
     </view>

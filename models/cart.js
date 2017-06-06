@@ -19,6 +19,9 @@ class Cart extends AV.Object {
   
   get productImage() { return this.get('productImage'); }
   set productImage(value) { this.set('productImage', value); }
+
+  get user() { return this.get('user'); }
+  set user(value) { this.set('user', value); }
 } 
 AV.Object.register(Cart);
 

@@ -1,6 +1,6 @@
 import AV from '../../libs/av-weapp-min'
 import _  from '../../libs/lodash'
-import Address from '../../models/address'
+import {Address} from '../../models/address'
 import Loading from '../../components/loading/loading'
 import {Order, ORDER_TABLENAME} from '../../models/order'
 import { ORDER_STATUS_STRING , ORDER_STATUS} from '../../utils/constants'
@@ -22,7 +22,8 @@ Page({
                 if (order.status === ORDER_STATUS.WILL_FINFISH || order.status === ORDER_STATUS.CLOSED) {
                     buttonColor = 'gray'
                 }
-                this.setData({order, buttonText: ORDER_STATUS_STRING[order.status], buttonColor})
+                let buttonText = order.status == 0 ? '支付' : ORDER_STATUS_STRING[order.status]
+                this.setData({order, buttonText, buttonColor})
                 Loading.hide()
             })
 
@@ -85,7 +86,6 @@ Page({
     const orderObj = AV.Object.createWithoutData(ORDER_TABLENAME, this.data.order.objectId)
                 orderObj.set('status', ORDER_STATUS.WILL_FINFISH)
                 orderObj.save().then((order) => {
-                  console.log(1111222)
                   Loading.hide()
                   this.onLoad({orderId: this.data.order.objectId})
                 }, (error) => {

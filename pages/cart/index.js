@@ -23,6 +23,7 @@ Page(Object.assign({}, Quantity,{
     Loading.show({text: '加载数据中'})
     const quantitys = {}
     new AV.Query(CART_TABLENAME)
+      .equalTo('user', AV.User.current())
       .descending('createAt')
       .find()
       .then((res) => {

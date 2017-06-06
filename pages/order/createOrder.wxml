@@ -19,7 +19,9 @@
         <template is="product-item" data="{{products: order.products}}"/>
         <view class="order-row" style=" margin-top: 1px;">
             <text class="order-product-title">配送方式</text>
-            <text class="order-product-title" style="color: #aaaaaa">{{order.freight === 0  ? '免运费' : '快递'}}</text>
+            <picker bindchange="bindPickerDistributionsChange"  range="{{distributions}}">
+                 <text class="order-product-title" style="color: #aaaaaa">{{selectDistribution}}</text>
+            </picker>
         </view>
         <view class="order-row" style=" margin-top: 1px; justify-content: flex-start">
             <text class="order-product-title">留言</text>
@@ -29,7 +31,7 @@
             <text class="order-product-title">合计</text>
             <text class="order-total-price">￥{{order.totalPrice}}</text>
         </view>
-        <view class="order-row">
+        <view wx:if="{{order.distribution == 0}}" class="order-row">
             <text class="order-product-title">运费</text>
             <text class="order-total-price" style="color: #aaaaaa">+ ￥{{order.freight}}</text>
         </view>
@@ -37,7 +39,7 @@
     <view class="order-actionbar">
         <view>
             <text class="order-actionbar-price" style="color: #aaaaaa">合计</text>
-            <text class="order-actionbar-price">￥{{order.totalPrice + order.freight}}</text>
+            <text class="order-actionbar-price">￥{{order.totalPrice + (order.distribution == 0 ? order.freight : 0)}}</text>
         </view>
         <view class="order-actionbar-sumbit" bindtap="commitOrder">提交订单</view>
     </view>

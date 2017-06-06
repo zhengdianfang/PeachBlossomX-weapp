@@ -78,7 +78,8 @@ Page(Object.assign({}, Quantity, Toast,{
       productPrice: product.price,
       productImage: _.head(product.images),
       productId: product.objectId,
-      productFlavor: this.data.selectFlavor
+      productFlavor: this.data.selectFlavor,
+      user: AV.User.current()
     }).save().then((res) => {
        this.showZanToast('添加成功')
        Loading.hide()

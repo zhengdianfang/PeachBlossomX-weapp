@@ -1,7 +1,7 @@
 import AV from '../../libs/av-weapp-min'
 import Toast from '../../components/toast/index'
 import _ from'../../libs/lodash'
-import Address from '../../models/address'
+import {Address, ADDRESS_TABLENAME} from '../../models/address'
 import Loading from '../../components/loading/loading'
 const app = getApp()
 

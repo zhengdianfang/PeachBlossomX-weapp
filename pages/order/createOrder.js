@@ -1,11 +1,11 @@
 import AV from '../../libs/av-weapp-min'
 import _  from '../../libs/lodash'
-import Address from '../../models/address'
+import {Address} from '../../models/address'
 import Loading from '../../components/loading/loading'
 import {calculateFreight} from '../../utils/util'
 import {Order} from '../../models/order'
 import {CART_TABLENAME} from '../../models/cart'
-import {ORDER_STATUS} from '../../utils/constants'
+import {ORDER_STATUS, Distributions} from '../../utils/constants'
 
 var app = getApp()
 Page({
@@ -15,8 +15,11 @@ Page({
       totalPrice: 0,
       address: {},
       freight: 0,
+      distribution: 0,
     },
     inputValue: '',
+    distributions: Distributions,
+    selectDistribution: Distributions[0],
   },
   cartIds: [],
   onLoad: function(props) {
@@ -92,5 +95,10 @@ Page({
       inputValue: e.detail.value
     })
   },
- 
+  bindPickerDistributionsChange(e) {
+    const selectIndex = e.detail.value
+    const order = _.cloneDeep(this.data.order)
+    order.distribution = parseInt(selectIndex)
+    this.setData({selectDistribution: Distributions[selectIndex], order})
+  }
 })
