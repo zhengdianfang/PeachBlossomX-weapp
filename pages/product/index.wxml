@@ -25,14 +25,21 @@
                     </view>
                     <view class="description">
                         <text class="description-title">商品详情</text>
-                            <image  
-                                wx:key="{{item.content}}" 
-                                wx:for="{{product.description}}" 
-                                wx:if="{{item.type === 'image'}}" 
-                                src="{{item.content}}" 
-                                class="description-content-image"
-                                mode="widthFix"
-                            />
+                        <text  wx:key="{{item.content}}" 
+                            wx:for="{{product.description}}" 
+                            wx:if="{{item.type === 'text'}}"
+                            class="description-content-text"
+                        >  
+                            {{item.content}}
+                        </text>
+                        <image  
+                            wx:key="{{item.content}}" 
+                            wx:for="{{product.description}}" 
+                            wx:if="{{item.type === 'image'}}" 
+                            src="{{item.content}}" 
+                            class="description-content-image"
+                            mode="widthFix"
+                        />
                     </view>
                 
                 </view>
@@ -60,7 +67,9 @@
                         </view>
                     </view>
                     <view class="divide"></view>
-                    <template is="wrapGroup" data="{{values: product.flavor, title: '口味', selectFlavor}}" />
+                    <block wx:if="{{product.flavor}}">
+                        <template is="wrapGroup" data="{{values: product.flavor, title: '口味', selectFlavor}}" />
+                    </block>
                     <view class="divide"></view>
                     <view class="product-count">
                         <view class="actionbar-column">

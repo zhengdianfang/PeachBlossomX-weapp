@@ -5,8 +5,8 @@
   <view style="height: 100vh">
     <swiper indicator-dots="{{true}}"
       autoplay="{{true}}">
-      <block wx:for="{{tops}}" wx:key="{{item.objectId}}">
-        <swiper-item>
+      <block wx:for="{{tops}}" wx:key="{{item.objectId}}" >
+        <swiper-item  bindtap="onClickProductItem" data-product="{{item}}"> 
           <image src="{{item.images[0]}}" class="slide-image" mode="aspectFill"/>
         </swiper-item>
       </block>

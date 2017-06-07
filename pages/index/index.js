@@ -13,6 +13,19 @@ Page({
   },
   onLoad: function () {
     Loading.show({text: '加载数据...'})
+    this.requestProducts()
+   
+  },
+  onClickProductItem: function(event) {
+    const product = event.currentTarget.dataset.product
+    wx.navigateTo({ url: '../product/index?id=' + product.objectId})
+  },
+   onPullDownRefresh: function() {
+    //Do some when page pull down.
+    this.requestProducts()
+  },
+
+  requestProducts() {
     new AV.Query('Product')
       .find()
       .then(array => {
@@ -21,11 +34,9 @@ Page({
         this.setData({ tops, products })
         Loading.hide()
       })
-      .catch(console.error);
-   
-  },
-  onClickProductItem: function(event) {
-    const product = event.currentTarget.dataset.product
-    wx.navigateTo({ url: '../product/index?id=' + product.objectId})
+      .catch((error) => {
+        console.error(error)
+        this.setData({error})
+      })
   }
 })
