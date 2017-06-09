@@ -10,28 +10,29 @@
             </view>
             <checkbox-group bindchange="checkboxChange">
                     <block wx:for="{{cartList}}" wx:key="{{item.objectId}}">
-                    <view class="cart-item">
-                        <checkbox value="{{item.objectId}}" checked="false" style="align-self: center;margin-left: 16rpx;" color="red"/>
-                        <image src="{{item.productImage}}" class="cart-image"></image>
-                        <block wx:if="{{editable}}">
+                        <view class="cart-item">
+                            <checkbox value="{{item.objectId}}" checked="false" style="align-self: center;margin-left: 16rpx;" color="red"/>
+                            <image src="{{item.productImage}}" class="cart-image"></image>
+                            <block wx:if="{{editable}}">
+                                    <view class="cart-column">
+                                        <template is="zan-quantity" data="{{ ...quantitys[item.objectId], componentId: item.objectId }}" />
+                                        <text wx:if="{{item.productOption}}" class="cart-flavor">{{item.productOption}}</text>
+                                        <text wx:if="{{item.productOption}}" class="cart-flavor">{{item.productOption}}</text>
+                                        <text class="cart-price">￥{{item.productPrice}}</text>
+                                    </view>
+                                    <view class="cart-item-delete-button" bindtap="deleteCart" data-cartid="{{item.objectId}}">删除</view>
+                            </block>
+                            <block wx:else>
                                 <view class="cart-column">
-                                    <template is="zan-quantity" data="{{ ...quantitys[item.objectId], componentId: item.objectId }}" />
-                                    <text class="cart-flavor">{{item.productFlavor}}</text>
-                                    <text class="cart-price">￥{{item.productPrice}}</text>
+                                    <text class="cart-title">{{item.productTitle}}</text>
+                                    <text wx:if="{{item.productOption}}" class="cart-flavor">{{item.productOption}}</text>
+                                    <view class="cart-row">
+                                        <text class="cart-price">￥{{item.productPrice}}</text>
+                                        <text class="cart-price" style="color: #aaaaaa">x{{item.count}}</text>
+                                    </view>
                                 </view>
-                                <view class="cart-item-delete-button" bindtap="deleteCart" data-cartid="{{item.objectId}}">删除</view>
-                        </block>
-                        <block wx:else>
-                            <view class="cart-column">
-                                <text class="cart-title">{{item.productTitle}}</text>
-                                <text class="cart-flavor">{{item.productFlavor}}</text>
-                                <view class="cart-row">
-                                    <text class="cart-price">￥{{item.productPrice}}</text>
-                                    <text class="cart-price" style="color: #aaaaaa">x{{item.count}}</text>
-                                </view>
-                            </view>
-                        </block>
-                    </view>
+                            </block>
+                        </view>
                     </block>
             </checkbox-group>
         </scroll-view>

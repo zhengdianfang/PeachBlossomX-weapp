@@ -3,7 +3,7 @@
         <image src="{{item.images[0]}}" class="product-item-image"></image>
         <view class="product-item-column"  style="flex: 1; margin-left: 16rpx">
            <text class="product-item-title">{{item.title}}</text>
-           <text class="product-item-unitprice">{{item.flavor}}</text>
+           <text class="product-item-unitprice">{{item.option}}</text>
         </view>
         <view class="product-item-column">
             <text class="product-item-title">￥{{item.count * item.price}}</text>

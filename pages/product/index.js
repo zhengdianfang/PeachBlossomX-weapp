@@ -4,6 +4,7 @@ import Quantity from '../../components/quantity/index.js'
 import {Cart, CART_TABLENAME} from '../../models/cart'
 import Toast from '../../components/toast/index'
 import Loading from '../../components/loading/loading'
+import {parseShowPriceString} from '../../utils/util'
 
 let productId = ''
 Page(Object.assign({}, Quantity, Toast,{
@@ -16,8 +17,10 @@ Page(Object.assign({}, Quantity, Toast,{
       max: 20
     },
     isJustPay: false,
-    selectFlavor: '',
+    selectOption: '',
     isLoading: true,
+    showPriceStr: '',
+    dialogShowPriceStr: '',
   },
   onReady: function () {
    
@@ -28,12 +31,14 @@ Page(Object.assign({}, Quantity, Toast,{
       .get(this.productId)
       .then(res => {
         const product = res.toJSON()
-        const selectFlavor = _.head(product.flavor)
+        const selectOption = _.head(_.get(product.options, 'values'))
         this.setData({
           product,
           quantity: { quantity: 1, min: 1,max: product.repertory - 1},
-          selectFlavor,
+          selectOption,
           isLoading: false,
+          showPriceStr: parseShowPriceString(product.price),
+          dialogShowPriceStr: product.price[0]
         })
         Loading.hide()
       })
@@ -64,7 +69,9 @@ Page(Object.assign({}, Quantity, Toast,{
   createOrder(e) {
     const quantity =  this.data.quantity.quantity
     const product = this.data.product
-    const param = [{productId:  product.objectId, count: quantity, flavor: this.data.selectFlavor}]
+    let optionIndex = _.indexOf(_.get(product.options ,'values'), this.data.selectOption)
+    optionIndex = optionIndex < 0 ? 0 : optionIndex
+    const param = [{productId:  product.objectId, count: quantity, option: this.data.selectOption, price: product.price[optionIndex]}]
     this.setData({showDialog: false})
     wx.navigateTo({ url: '../order/createOrder?products=' + JSON.stringify(param)})
   },
@@ -72,13 +79,15 @@ Page(Object.assign({}, Quantity, Toast,{
   addToCart(e) {
     Loading.show({text: '添加中...'})
     const product = this.data.product
+    let optionIndex = _.indexOf(_.get(product.options, 'values'), this.data.selectOption)
+    optionIndex = optionIndex < 0 ? 0 : optionIndex
     new Cart({
       count:  this.data.quantity.quantity,
       productTitle: product.title,
-      productPrice: product.price,
+      productPrice: product.price[optionIndex],
       productImage: _.head(product.images),
       productId: product.objectId,
-      productFlavor: this.data.selectFlavor,
+      productOption: this.data.selectOption,
       user: AV.User.current()
     }).save().then((res) => {
        this.showZanToast('添加成功')
@@ -88,8 +97,9 @@ Page(Object.assign({}, Quantity, Toast,{
   },
 
   bindWrapGroupChildrenClick(e) {
-    const selectFlavor = e.currentTarget.dataset.text
-    this.setData({selectFlavor})
+    const selectOption = e.currentTarget.dataset.text
+    const optionIndex = _.indexOf(this.data.product.options.values, selectOption)
+    this.setData({selectOption, dialogShowPriceStr: this.data.product.price[optionIndex]})
   },
   openCart() {
     wx.switchTab({url : '../cart/index'})

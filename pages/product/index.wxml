@@ -19,7 +19,7 @@
                 </swiper>
                 <view class="content">
                     <text class="content-title">{{product.title}}</text>
-                    <text class="content-price">￥{{product.price}}</text>
+                    <text class="content-price">￥{{showPriceStr}}</text>
                     <view class="content-count">
                         <text class="content-count-sheng">剩余: {{product.repertory}}</text>
                     </view>
@@ -63,12 +63,12 @@
                         <image src="{{product.images[0]}}" class="dialog-image" mode="aspectFill"/>
                         <view class="dialog-product-header">
                             <text class="dialog-product-header-title">{{product.title}}</text>
-                            <text  class="dialog-product-header-price">￥{{product.price}}</text>
+                            <text  class="dialog-product-header-price">￥{{dialogShowPriceStr}}</text>
                         </view>
                     </view>
                     <view class="divide"></view>
-                    <block wx:if="{{product.flavor}}">
-                        <template is="wrapGroup" data="{{values: product.flavor, title: '口味', selectFlavor}}" />
+                    <block wx:if="{{product.options}}">
+                        <template is="wrapGroup" data="{{values: product.options.values, title: product.options.title, selectOption}}" />
                     </block>
                     <view class="divide"></view>
                     <view class="product-count">

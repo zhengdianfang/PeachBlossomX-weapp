@@ -32,7 +32,8 @@ Page({
           order.address =  _.find(app.addressList, (elem) => elem.current)
           order.products = _.chain(results).map((elem) => elem.toJSON()).map((p, index) => {
               const count = products[index].count
-              p.flavor = products[index].flavor
+              p.option = products[index].option
+              p.price = products[index].price
               order.totalPrice += p.price * count
               return Object.assign({count}, p)
           }).value()

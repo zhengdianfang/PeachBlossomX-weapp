@@ -3,6 +3,7 @@
 import AV from '../../libs/av-weapp-min'
 import _  from '../../libs/lodash'
 import Loading from '../../components/loading/loading'
+import {parseShowPriceString} from '../../utils/util'
 Page({
   data: {
     products: [],
@@ -29,7 +30,11 @@ Page({
     new AV.Query('Product')
       .find()
       .then(array => {
-        const products = _.map(array, (elem) => elem.toJSON())
+        const products = _.map(array, (elem) => {
+          const p = elem.toJSON()
+          p.price = parseShowPriceString(p.price)
+          return p
+        })
         const tops = _.filter(products, (elem) => elem.top)
         this.setData({ tops, products })
         Loading.hide()

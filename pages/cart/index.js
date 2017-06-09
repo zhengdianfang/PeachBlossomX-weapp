@@ -87,18 +87,15 @@ Page(Object.assign({}, Quantity,{
 
   deleteCart(e) {
     let cartList = _.cloneDeep(this.data.cartList)
-    const willDeleteCart = _.find(cartList, (elem) => _.isEqual(elem.objectId, e.currentTarget.dataset.cartid))
-    if(willDeleteCart) {
-       AV.Object.createWithoutData('Cart', willDeleteCart.objectId).destroy().then((res) => {
-           cartList.pop(willDeleteCart)
+    AV.Object.createWithoutData('Cart',  e.currentTarget.dataset.cartid).destroy().then((res) => {
+           _.remove(cartList, (elem) => elem.objectId === e.currentTarget.dataset.cartid)
            this.calTotalPrice(cartList)
            this.setData({cartList})
        })
-    }
   },
   createOrder(e) {
     const param = _.chain(this.data.cartList).filter((elem) => _.includes(this.selectIds, elem.objectId)).map((elem) => {
-      return {cartId: elem.objectId, productId: elem.productId, count: elem.count, flavor: elem.productFlavor}
+      return {cartId: elem.objectId, productId: elem.productId, count: elem.count, option: elem.productOption, price: elem.productPrice}
     }).value()
     wx.navigateTo({ url: '../order/createOrder?products=' + JSON.stringify(param)})
   },

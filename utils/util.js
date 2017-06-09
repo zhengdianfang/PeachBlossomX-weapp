@@ -70,9 +70,18 @@ function calculateFreight(products, address) {
   return freight
 }
 
+function parseShowPriceString(priceArray) {
+  const uniqArray = _.sortedUniq(_.cloneDeep(priceArray));
+  if (uniqArray.length == 1) {
+    return `${uniqArray[0]}`
+  }
+  return `${uniqArray[0]} - ${uniqArray[uniqArray.length - 1]}`
+}
+
 module.exports = {
   formatTime,
   calculateFreight,
+  parseShowPriceString
 }
 
 
