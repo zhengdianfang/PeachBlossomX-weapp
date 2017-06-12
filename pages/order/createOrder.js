@@ -1,7 +1,6 @@
 import AV from '../../libs/av-weapp-min'
 import _  from '../../libs/lodash'
 import {Address} from '../../models/address'
-import Loading from '../../components/loading/loading'
 import {calculateFreight} from '../../utils/util'
 import {Order} from '../../models/order'
 import {CART_TABLENAME} from '../../models/cart'
@@ -23,7 +22,9 @@ Page({
   },
   cartIds: [],
   onLoad: function(props) {
-      Loading.show({text: '加载数据...'})
+      wx.showLoading({
+        title: '加载数据...',
+      })
       const products = JSON.parse(props.products)
       this.cartIds = _.map(products, elem => elem.cartId)
       const query =  new AV.Query('Product')
@@ -39,7 +40,7 @@ Page({
           }).value()
           order.freight = calculateFreight(order.products, order.address)
           this.setData({order})
-          Loading.hide()
+          wx.hideLoading()
       }).catch(e => console.error(e))
  
   },
@@ -69,7 +70,9 @@ Page({
     this.setData({order})
   },
   commitOrder(e) {
-     Loading.show({text: '正在生成订单...'})
+     wx.showLoading({
+       title: '正在生成订单...',
+     })
      const order = _.cloneDeep(this.data.order)
      _.each(order.products, elem => {
        elem.images = [_.head(elem.images)]
@@ -88,7 +91,7 @@ Page({
          return AV.Object.createWithoutData(CART_TABLENAME, elem)
        }))
        wx.redirectTo({url: './orderDetail?orderId=' + order.objectId})
-       Loading.hide()
+       wx.hideLoading()
      })
   },
   bindKeyInput(e) {

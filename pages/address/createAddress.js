@@ -1,8 +1,6 @@
 import AV from '../../libs/av-weapp-min'
-import Toast from '../../components/toast/index'
 import _ from'../../libs/lodash'
 import {Address, ADDRESS_TABLENAME} from '../../models/address'
-import Loading from '../../components/loading/loading'
 const app = getApp()
 
 let province = null
@@ -17,7 +15,7 @@ const default_province = '省份'
 const default_city = '城市'
 const default_area = '地区'
 
-Page(Object.assign({}, Toast, {
+Page({
   data: {
     provinceNames: [],
     cityNames: [],
@@ -111,7 +109,7 @@ Page(Object.assign({}, Toast, {
         this.showZanToast('请填写地址');
         return;
     }
-    Loading.show({text: '加载数据中'})
+    wx.showLoading({title: '加载数据中'})
     const user = AV.User.current().toJSON();
     new Address({
       username: this.userName,
@@ -124,7 +122,7 @@ Page(Object.assign({}, Toast, {
       userId: user.objectId
     }).save().then((newAddress) => {
       // console.log(address.toJSON())
-        Loading.hide()
+        wx.hideLoading()
         this.showZanToast('保存成功')
         app.updateUserAddressList()
         wx.navigateBack()
@@ -147,4 +145,4 @@ Page(Object.assign({}, Toast, {
   bindBack(e) {
     wx.navigateBack()
   }
-}))
+})

@@ -2,7 +2,6 @@ import AV from '../../libs/av-weapp-min'
 import _ from '../../libs/lodash'
 import { Order, ORDER_TABLENAME } from '../../models/order' 
 import { ORDER_STATUS_STRING, ORDER_STATUS } from '../../utils/constants'
-import Loading from '../../components/loading/loading'
 import Tab from '../../components/tab/index'
 
 var app = getApp()
@@ -22,10 +21,8 @@ Page(Object.assign({}, Tab,{
       scroll: false
     },
     listLoading: true,
-    showConfrimDialog: false,
   },
   status: -1,
-  clickOrderId: '',
 
   onLoad: function(options) {
     //Do some initialize when page load.
@@ -96,15 +93,15 @@ Page(Object.assign({}, Tab,{
   },
 
   closeOrder(e) {
-    Loading.show({text: '正在取消订单...'})
+    wx.showLoading({title: '正在取消订单...'})
     const orderId = e.currentTarget.dataset.orderid
     const orderObj = AV.Object.createWithoutData(ORDER_TABLENAME, orderId)
     orderObj.set('status', ORDER_STATUS.CLOSED)
     orderObj.save().then((success) => {
        this.requestOrderList()
-       Loading.hide()
+       wx.hideLoading()
     }, (error) => {
-       Loading.hide()
+       wx.hideLoading()
     });
   },
 
@@ -119,8 +116,18 @@ Page(Object.assign({}, Tab,{
          case ORDER_STATUS.WILL_SNED:
             break
          case ORDER_STATUS.WILL_RECIVER:
-            this.setData({showConfrimDialog: true})
-            this.clickOrderId = orderId
+            wx.showModal({
+                title: '提示',
+                content: '确认收货吗？',
+                confirmColor: 'red',
+                success: (res) => {
+                  if (res.confirm) {
+                    this.okConfrimDialog(orderId)
+                  } else if (res.cancel) {
+                   
+                  }
+                }
+            })
             break
     }
   },
@@ -143,41 +150,37 @@ Page(Object.assign({}, Tab,{
   },
 
   wepayRequest(orderId, amount) {
-     Loading.show({text: '正在提交订单...'})
+     wx.showLoading({title: '正在提交订单...'})
 
      AV.Cloud.run('order', {orderId, amount}).then((data) => {
               data.success = () => {
                 // 支付成功
-                Loading.hide()
+                wx.hideLoading()
                 this.onLoad({status: this.status})
               }
               data.fail = ({ errMsg }) => {
                 // 错误处理
-                Loading.hide()
+                wx.hideLoading()
                 console.log(errMsg)
               }
               wx.requestPayment(data);
             }).catch(error => {
               // 错误处理
-              Loading.hide()
+              wx.hideLoading()
               console.log(error)
             })
   },
-  cancelConfrimDialog() {
-    this.setData({showConfrimDialog: false})
-  },
 
-  okConfrimDialog(e) {
-    this.setData({showConfrimDialog: false})
-    if (!_.isEmpty(this.clickOrderId)) {
-      Loading.show({text: '提交中...'})
-      const orderObj = AV.Object.createWithoutData(ORDER_TABLENAME, this.clickOrderId)
+  okConfrimDialog(clickOrderId) {
+    if (!_.isEmpty(clickOrderId)) {
+      wx.showLoading({title: '提交中...'})
+      const orderObj = AV.Object.createWithoutData(ORDER_TABLENAME, clickOrderId)
       orderObj.set('status', ORDER_STATUS.WILL_FINFISH)
       orderObj.save().then((order) => {
-        Loading.hide()
+        wx.hideLoading()
         this.onLoad({status: this.status})
       }, (error) => {
-        Loading.hide()
+        wx.hideLoading()
       });
     }
   }

@@ -2,7 +2,6 @@
 //获取应用实例
 import AV from '../../libs/av-weapp-min'
 import _  from '../../libs/lodash'
-import Loading from '../../components/loading/loading'
 import {parseShowPriceString} from '../../utils/util'
 Page({
   data: {
@@ -13,7 +12,7 @@ Page({
   
   },
   onLoad: function () {
-    Loading.show({text: '加载数据...'})
+    wx.showLoading({title: '加载数据...'})
     this.requestProducts()
    
   },
@@ -37,9 +36,10 @@ Page({
         })
         const tops = _.filter(products, (elem) => elem.top)
         this.setData({ tops, products })
-        Loading.hide()
+        wx.hideLoading()
       })
       .catch((error) => {
+        wx.hideLoading()
         console.error(error)
         this.setData({error})
       })

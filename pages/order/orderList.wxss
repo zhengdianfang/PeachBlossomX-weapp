@@ -1,5 +1,4 @@
 @import "orderItem.wxss";
-@import "confrimDialog.wxss";
 .order-list-container{
     display: flex;
     height: 100vh;

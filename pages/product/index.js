@@ -2,12 +2,10 @@ import AV from'../../libs/av-weapp-min'
 import _ from'../../libs/lodash'
 import Quantity from '../../components/quantity/index.js'
 import {Cart, CART_TABLENAME} from '../../models/cart'
-import Toast from '../../components/toast/index'
-import Loading from '../../components/loading/loading'
 import {parseShowPriceString} from '../../utils/util'
 
 let productId = ''
-Page(Object.assign({}, Quantity, Toast,{
+Page(Object.assign({}, Quantity,{
   data: {
     showDialog: false,
     product: {},
@@ -40,15 +38,17 @@ Page(Object.assign({}, Quantity, Toast,{
           showPriceStr: parseShowPriceString(product.price),
           dialogShowPriceStr: product.price[0]
         })
-        Loading.hide()
+        wx.hideLoading()
       })
       .catch(console.error);
   },
   onLoad: function (props) {
-     Loading.show({text: '加载数据...'})
-     this.productId = props.id
-      this.setData({isLoading: true})
-     this.onPullDownRefresh()
+    wx.showLoading({
+      title: '加载数据...',
+    })
+    this.productId = props.id
+    this.setData({isLoading: true})
+    this.onPullDownRefresh()
   },
  
   toggleDialog(e) {
@@ -77,7 +77,9 @@ Page(Object.assign({}, Quantity, Toast,{
   },
 
   addToCart(e) {
-    Loading.show({text: '添加中...'})
+    wx.showLoading({
+      title: '添加中...',
+    })
     const product = this.data.product
     let optionIndex = _.indexOf(_.get(product.options, 'values'), this.data.selectOption)
     optionIndex = optionIndex < 0 ? 0 : optionIndex
@@ -90,8 +92,12 @@ Page(Object.assign({}, Quantity, Toast,{
       productOption: this.data.selectOption,
       user: AV.User.current()
     }).save().then((res) => {
-       this.showZanToast('添加成功')
-       Loading.hide()
+       wx.showToast({
+          title: '添加成功',
+          icon: 'success',
+          duration: 2000
+       })
+       wx.hideLoading()
        this.setData({showDialog: false})
     })
   },

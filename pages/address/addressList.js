@@ -1,7 +1,6 @@
 import AV from '../../libs/av-weapp-min'
 import {Address, ADDRESS_TABLENAME} from '../../models/address'
 import _ from '../../libs/lodash.js'
-import Loading from '../../components/loading/loading'
 
 const app = getApp()
 

@@ -4,7 +4,6 @@ import AV from'../../libs/av-weapp-min'
 import {Cart, CART_TABLENAME} from '../../models/cart'
 import _ from '../../libs/lodash'
 import Quantity from '../../components/quantity/index.js'
-import Loading from '../../components/loading/loading'
 
 var app = getApp()
 let selectIds = []
@@ -20,7 +19,7 @@ Page(Object.assign({}, Quantity,{
   onLoad: function () {
   },
   onShow: function() {
-    Loading.show({text: '加载数据中'})
+    wx.showLoading({title: '加载数据中'})
     const quantitys = {}
     new AV.Query(CART_TABLENAME)
       .equalTo('user', AV.User.current())
@@ -39,7 +38,7 @@ Page(Object.assign({}, Quantity,{
         this.calTotalPrice(cartList)
         this.selectIds = _.map(cartList, elem => elem.objectId)
         this.setData({cartList, quantitys})
-        Loading.hide()
+        wx.hideLoading()
       }).catch(e => console.error(e))
   },
   onHide: function() {
