@@ -43,13 +43,15 @@ Page({
   },
   radioChange(e) {
     const selectId = e.detail.value
-    _.each(app.addressList, (elem) => {
-        var address = AV.Object.createWithoutData(ADDRESS_TABLENAME, elem.objectId);
-        address.set('current', elem.objectId === selectId);
+    Promise.all(_.map(app.addressList, (elem) => {
+        var address = AV.Object.createWithoutData(ADDRESS_TABLENAME, elem.objectId)
+        address.set('current', elem.objectId === selectId)
         elem.current = elem.objectId === selectId
-        address.save();
+        return  address.save()
+    })).then(() => {
+      wx.navigateBack()
+      this.setData({addressList: app.addressList})
     })
-    this.setData({addressList: app.addressList})
 
   },
   createNewAddress(e) {

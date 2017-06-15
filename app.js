@@ -30,21 +30,9 @@ App({
               // 更新当前用户的信息
               user.set(userInfo).save().then(user => {
               }).catch(console.error)
-              //更新用户地址
-              this.updateUserAddressList()
             }
           });
       }).catch(console.error);
      return user.toJSON()
   },
-  updateUserAddressList() {
-    const user = AV.User.current().toJSON()
-    new AV.Query('Address')
-        .equalTo('userId', user.objectId)
-        .descending('current')
-        .find()
-        .then((res) => {
-            this.addressList = _.map(res, elem => elem.toJSON())
-        }).catch(e => console.error(e));
-  }
-})
+ })

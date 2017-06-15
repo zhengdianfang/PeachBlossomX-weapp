@@ -110,6 +110,7 @@
     justify-content: center;
     background-color: red;
     margin-left: 64rpx;
+    border-radius: 0px;
 }
 
 .order-detail-actionbar-price {

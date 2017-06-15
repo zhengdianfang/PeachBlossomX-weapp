@@ -43,6 +43,8 @@
             <text class="order-detail-actionbar-price" style="color: #aaaaaa">合计</text>
             <text class="order-detail-actionbar-price">￥{{order.totalPrice + (order.distribution == 0 ? order.freight : 0)}}</text>
         </view>
-        <view class="order-detail-actionbar-sumbit" bindtap="changeOrderStatus" style=" background-color: {{buttonColor}}">{{buttonText}}</view>
+        <form  bindsubmit="changeOrderStatus" report-submit="{{true}}" style="height: 100%">
+            <button class="order-detail-actionbar-sumbit" formType="submit"  style=" background-color: {{buttonColor}}">{{buttonText}}</button>
+        </form>
     </view>
 </view>

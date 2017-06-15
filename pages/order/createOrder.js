@@ -60,14 +60,15 @@ Page({
 
   },
   addReciverProductAddress(e) {
-    wx.navigateTo({url: '../address/addressList'})
+    wx.chooseAddress({success: (address) => {
+      const order = _.cloneDeep(this.data.order) 
+      order.address = address
+      this.setData({order})
+      console.log(this.data.order)
+    }})
   },
   addMessage(e) {
       
-  },
-  setAddress(address) {
-    const order = Object.assign({address}, this.data.order)
-    this.setData({order})
   },
   commitOrder(e) {
      wx.showLoading({

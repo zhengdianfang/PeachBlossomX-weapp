@@ -39,10 +39,11 @@ Page({
 
   },
   changeOrderStatus(e) {
+    const formId = e.detail.formId
     const status = this.data.order.status
     switch(status){
          case ORDER_STATUS.WILL_PAY:
-            this.wepayRequest()
+            this.wepayRequest(formId)
             break
          case ORDER_STATUS.WILL_SNED:
             break
@@ -62,9 +63,9 @@ Page({
             break
     }
   },
-  wepayRequest() {
+  wepayRequest(formId) {
      wx.showLoading({title: '正在提交订单...'})
-     AV.Cloud.run('order',  {orderId: this.data.order.objectId, amount:  this.data.order.freight +  this.data.order.totalPrice}).then((data) => {
+     AV.Cloud.run('order',  {orderId: this.data.order.objectId, amount:  this.data.order.freight +  this.data.order.totalPrice, formId}).then((data) => {
               data.success = () => {
                 // 支付成功
                 wx.hideLoading()

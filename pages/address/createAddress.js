@@ -123,8 +123,10 @@ Page({
     }).save().then((newAddress) => {
       // console.log(address.toJSON())
         wx.hideLoading()
-        this.showZanToast('保存成功')
-        app.updateUserAddressList()
+        wx.showToast({
+          title:'保存成功',
+          icon: 'success',
+          duration: 2000})
         wx.navigateBack()
     }) 
   },
